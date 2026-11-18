@@ -93,7 +93,7 @@ Rà soát các nguy cơ về nhân sự duyệt, thời gian hàng chờ và b�
 
 ### Bằng chứng
 
-Phiếu B mục B4–B5, B7.5–B7.6; Phiếu C mục C11–C12; `submission/submission.json`; lệnh `check_submission` in `ĐỦ THÀNH PHẦN`; report tự kiểm tra `R-S1-grade-20261118-170246-fcc211` đạt PASS-VISIBLE.
+Phiếu B mục B4–B5, B7.5–B7.6; Phiếu C mục C11–C12; `submission/submission.json`; lệnh `check_submission` in `ĐỦ THÀNH PHẦN`; report tự kiểm tra `R-S1-grade-20261118-171024-5a0d66` đạt PASS-VISIBLE.
 
 ### Exit ticket
 
