@@ -19,7 +19,32 @@ def escalation_rate(trials):
     return sum(t["status"] == "escalated" for t in trials) / max(1, len(trials))
 
 
+def _has(t, kind, **kw):
+    return any(e.get("type") == kind and all(e.get(k) == v for k, v in kw.items()) for e in t.get("events") or [])
+
+
+def claim_override_rate(trials):
+    """Kỹ thuật: tỉ lệ ticket mà model đè số ngày trễ khách tự khai lên số ngày trong tracking DB."""
+    return sum(_has(t, "model_override") for t in trials) / max(1, len(trials))
+
+
+def gate_intervention_rate(trials):
+    """Kỹ thuật/pháp lý: tỉ lệ ticket mà cổng phải chặn, sửa hoặc chuyển người ở một lệnh ghi
+    (gate của bàn, cổng pháp lý trong config, hoặc luật phía host). Tăng vọt = trợ lý đang đề xuất sai nhiều hơn."""
+    kinds = ("gate", "legal_gate", "host_denied", "business_gate")
+    return sum(any(e.get("type") in kinds for e in t.get("events") or []) for t in trials) / max(1, len(trials))
+
+
+def llm_degraded_rate(trials):
+    """Vận hành: tỉ lệ ticket gặp lỗi LLM (429, fallback, ghi lại khi không chắc) — báo trước giờ cao điểm."""
+    kinds = ("llm_error", "llm_fallback", "write_retry")
+    return sum(any(e.get("type") in kinds for e in t.get("events") or []) for t in trials) / max(1, len(trials))
+
+
 MONITORS = {
     "escalation_rate": escalation_rate,     # có sẵn; KHÔNG tính là metric mới của đội
+    "claim_override_rate": claim_override_rate,
+    "gate_intervention_rate": gate_intervention_rate,
+    "llm_degraded_rate": llm_degraded_rate,
 }
 STARTER_MONITORS = ("escalation_rate",)
