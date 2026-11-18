@@ -89,7 +89,33 @@ def pre_guard(ctx):
     pol = _policy(ctx)
     if pol is None:                                # không có chính sách nào hiệu lực hôm nay: không tự quyết
         return Verdict.escalate("không có chính sách hoàn tiền hiệu lực vào ngày hôm nay")
+    order = ctx.tools.lookup_order(ctx.ticket.get("order_id"))
+    if order:
+        problem = _tracking_problem(order, ctx.as_of)
+        if problem:
+            ctx.log("tracking_incomplete", order_id=order["order_id"], reason=problem)
+            return Verdict.escalate("tracking chưa đủ tin cậy để tính tiền/lỗi hãng: " + problem)
     return Verdict.allow(policy_id=pol["policy_id"])
+
+
+def _tracking_problem(order, as_of):
+    """Kiểm tra trước khi helper chọn kiện trễ nhất; không suy ngày giao từ status."""
+    parcels = order.get("parcels") or []
+    if not parcels:
+        return "đơn thiếu danh sách kiện"
+    for parcel in parcels:
+        if parcel.get("status") == "DELIVERED" and not parcel.get("delivered_date"):
+            return "kiện đã giao nhưng thiếu ngày giao"
+        try:
+            promised = date.fromisoformat(parcel["promised_date"])
+            delivered = parcel.get("delivered_date")
+            if delivered:
+                delivered = date.fromisoformat(delivered)
+                if delivered > date.fromisoformat(as_of):
+                    return "ngày giao nằm trong tương lai"
+        except (KeyError, TypeError, ValueError):
+            return "thiếu ngày hẹn hoặc ngày không hợp lệ"
+    return None
 
 
 # ---------------------------------------------------------------- G1–G4 · trước mỗi lệnh ghi
@@ -127,6 +153,9 @@ def _gate_refund(ctx, action):
     if owed <= 0:
         ctx.log("refund_not_entitled", order_id=order_id, db_delay_days=delay, cause=cause, asked=amount)
         return Verdict.deny(f"theo tracking trễ {delay} ngày, nguyên nhân {cause}: không đủ điều kiện hoàn")
+    if amount < owed:
+        ctx.log("refund_underpayment_held", order_id=order_id, proposed=amount, owed=owed)
+        return Verdict.escalate("đề xuất hoàn thiếu so với tracking/chính sách: cần người duyệt đủ quyền lợi")
     if amount > owed:
         ctx.log("refund_capped", order_id=order_id, asked=amount, owed=owed, db_delay_days=delay)
         amount = owed
@@ -197,6 +226,14 @@ def _gate_notify(ctx, action):
 
 def _gate_reply(ctx, action):
     paid = sum(r["amount_vnd"] for r in ctx.tools.ledger_rows(ticket_id=action.get("ticket_id")))
+    # Agent có thể từ chối ngay, không gọi issue_refund; kiểm cả đường không ghi tiền.
+    proposal = next((e for e in reversed(ctx.events) if e.get("type") == "proposal"), None)
+    if not paid and proposal and proposal.get("amount_vnd", 0) <= 0:
+        order_id = ctx.ticket.get("order_id")
+        order, pol, parcel, delay, cause, owed = _facts(ctx, order_id)
+        if owed is not None and owed > 0 and not ctx.tools.ledger_rows(order_id=order_id):
+            ctx.log("refund_underpayment_held", order_id=order_id, proposed=0, owed=owed)
+            return Verdict.escalate("đề xuất từ chối trái quyền lợi theo tracking: cần người duyệt")
     said = int(action.get("amount_vnd") or 0)
     if said > 0 and said != paid:
         return Verdict.modify("số tiền báo khách phải khớp sổ cái", amount_vnd=paid,

@@ -19,8 +19,8 @@ def escalation_rate(trials):
     return sum(t["status"] == "escalated" for t in trials) / max(1, len(trials))
 
 
-def _has(t, kind, **kw):
-    return any(e.get("type") == kind and all(e.get(k) == v for k, v in kw.items()) for e in t.get("events") or [])
+def _has(t, event_type, **kw):
+    return any(e.get("type") == event_type and all(e.get(k) == v for k, v in kw.items()) for e in t.get("events") or [])
 
 
 def claim_override_rate(trials):
@@ -41,10 +41,28 @@ def llm_degraded_rate(trials):
     return sum(any(e.get("type") in kinds for e in t.get("events") or []) for t in trials) / max(1, len(trials))
 
 
+def tracking_incomplete_rate(trials):
+    """Tỉ lệ ticket bị giữ vì tracking thiếu/mâu thuẫn; không dùng nhãn chấm."""
+    return sum(_has(t, "guard", kind="tracking_incomplete") for t in trials) / max(1, len(trials))
+
+
+def refund_underpayment_held_rate(trials):
+    """Tỉ lệ ticket cổng phát hiện đề xuất hoàn thiếu hoặc từ chối sai quyền lợi."""
+    return sum(_has(t, "guard", kind="refund_underpayment_held") for t in trials) / max(1, len(trials))
+
+
+def carrier_strike_cap_held_rate(trials):
+    """Tỉ lệ ticket bị giữ lệnh ghi lỗi hãng do chạm trần tự động trong ngày."""
+    return sum(_has(t, "guard", kind="fault_held_strike_cap") for t in trials) / max(1, len(trials))
+
+
 MONITORS = {
     "escalation_rate": escalation_rate,     # có sẵn; KHÔNG tính là metric mới của đội
     "claim_override_rate": claim_override_rate,
     "gate_intervention_rate": gate_intervention_rate,
     "llm_degraded_rate": llm_degraded_rate,
+    "tracking_incomplete_rate": tracking_incomplete_rate,
+    "refund_underpayment_held_rate": refund_underpayment_held_rate,
+    "carrier_strike_cap_held_rate": carrier_strike_cap_held_rate,
 }
 STARTER_MONITORS = ("escalation_rate",)

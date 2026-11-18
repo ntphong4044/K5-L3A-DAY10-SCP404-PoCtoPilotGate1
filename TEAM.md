@@ -5,7 +5,7 @@
 - Tên nhóm (`TenNhom`, không dấu, không khoảng trắng): SCP404
 - Lớp: `L3A`
 - Repo của bàn: `K5-L3A-DAY10-SCP404-PoCtoPilotGate1`
-- Thẻ sự cố đã bốc (S1–S8):
+- Thẻ sự cố đã bốc (S1–S8): S1
 
 ## Thành viên
 
@@ -51,16 +51,16 @@ Vai: Kỹ sư cổng. Phụ trách trace các ca lỗi, behavioral test, thiết
 
 ### Đóng góp cụ thể
 
-Tham gia phân tích log và thiết kế các hàm tiền kiểm và hậu kiểm cho các hành động ghi.
+Hoàn thiện CP4 thẻ S1: phân tích khai tăng/giảm ngày trễ, tracking đã giao nhưng thiếu ngày, trần lỗi hãng cùng ngày. Bổ sung tiền kiểm tracking, cổng giữ đề xuất hoàn thiếu/từ chối sai và ba monitor; điền Phiếu C0–C11, cập nhật runbook và bàn giao CP5. Có dùng Codex hỗ trợ đọc trace, sửa code, chạy kiểm tra và soạn tài liệu; cần tự nắm logic và con số để giải thích lúc demo.
 
 ### Bằng chứng
 
-...
+Grade `R-S1-grade-20261118-163851-5c9f7b`: PASS-VISIBLE; integrity, criteria, visible, regression, monitor đều đạt. S1 đúng 65/65 lượt, base 110/110; 13/13 test công khai qua. Phiếu C0–C11 và `docs/CP4-S1-handoff.md`; report lưu trong `submission/cp4-evidence/` để bàn giao qua Git.
 
 ### Exit ticket
 
-Một điều học được: Sự khác biệt giữa can thiệp prompt model và dựng rào chắn cấp hệ thống bằng code.
-Một điều còn chưa chắc: Cách kiểm soát các lỗi chìm không phát hiện qua test công khai.
+Một điều học được: Cổng chỉ kiểm lệnh hoàn chưa đủ; khách khai thấp có thể làm agent từ chối trước khi gọi lệnh, nên phải kiểm cả đường gửi kết luận. Tracking là nguồn sự thật nhưng vẫn phải kiểm tính đầy đủ.
+Một điều còn chưa chắc: Tỉ lệ timestamp hợp lệ nhưng sai, lỗi tích luỹ 7 ngày và chất lượng xử lý tay trong pilot thật; PASS-VISIBLE chưa chứng minh qua test ẩn.
 
 ## KimDucThang-2A202603702
 
