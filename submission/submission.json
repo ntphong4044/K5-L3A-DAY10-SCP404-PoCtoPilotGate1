@@ -1,12 +1,17 @@
 {
-  "team": "",
-  "members": [],
-  "incident": "",
-  "decision_v1": "",
-  "decision_v2": "",
+  "team": "K5-L3A-DAY10-SCP404-PoCtoPilotGate1",
+  "members": [
+    "NguyenTuanPhong-2A202603712",
+    "LeAnhQuan-2A202603576",
+    "KimDucThang-2A202603702",
+    "TranDucManh-2A202603615"
+  ],
+  "incident": "S1",
+  "decision_v1": "Tiếp tục",
+  "decision_v2": "Tiếp tục",
   "three_lines": {
-    "environment_assumption": "",
-    "reduce_or_prevent": "",
-    "measure_in_pilot": ""
+    "environment_assumption": "Hệ thống giả định dữ liệu tracking trong database luôn đồng bộ tức thời và phản ánh đúng thực tế giao nhận ngoại vi, điều này có thể sai lệch khi tài xế cập nhật trễ hoặc bấm nhầm trạng thái.",
+    "reduce_or_prevent": "Cổng của đội thực sự NGĂN được tác hại trên các ticket thiếu ngày giao hoặc lệch thông tin nhờ cơ chế chặn ghi và chuyển người duyệt trước khi phát lệnh hoàn hoặc phạt, nhưng chỉ GIẢM tác hại với lỗi tích luỹ 7 ngày của hãng nhờ trần cap 2 lỗi/ngày.",
+    "measure_in_pilot": "Trong tuần đầu pilot thật, cần đo lại tỉ lệ timestamp tracking bị sai/thiếu thực tế đối chiếu với biên bản giao hàng (POD), thời gian xử lý duyệt tay thực của nhân viên CSKH và tần suất khiếu nại của hãng theo chu kỳ 7 ngày."
   }
 }

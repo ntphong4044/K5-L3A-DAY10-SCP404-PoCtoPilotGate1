@@ -211,13 +211,13 @@ Grade đạt: `R-S1-grade-20261118-163851-5c9f7b`, hash code `5c9f7b09b966`.
 | 4 Quyền hạn | Xong trong mock | Giữ cap 2 lỗi; thêm escalation trước từ chối/hoàn thiếu; S1-42/43 không tự ghi lỗi vượt trần. | Lê Anh Quân |
 | 5 Hiệu năng/hạ tầng | Xong đo S1; chưa đo tải thật | 0 ca ùn, chờ 0 phút; S1 không có 429; runbook 5 là kế hoạch ứng phó. | Lê Anh Quân |
 | 6 Chi phí/lợi ích | Xong trên giả định mock | S1 5.870đ, ROI 0.70; base 4.456đ, ROI 1.24; coverage 1.0. | Kim Đức Thắng |
-| 7 Vận hành/theo dõi | Xong bản cập nhật CP4; chờ Mạnh soát CP5 | 3 monitor mới ở C8, runbook dưới đây; không ký thay người soát. | Trần Đức Mạnh |
+| 7 Vận hành/theo dõi | Xong bản cập nhật CP4; Mạnh đã soát CP5 | 3 monitor mới ở C8, runbook dưới đây; Trần Đức Mạnh đã soát và xác nhận ngày 2026-11-18. | Trần Đức Mạnh |
 | 8 Con người/pháp lý | Xong cổng, còn đo đối soát 7 ngày | Không lỗi oan/PII sau cổng; C10 ghi rủi ro còn hở cho hãng/tài xế. | Trần Đức Mạnh |
-| 9 Quyết định | Chưa — thuộc CP5 | C12 và submission.json chưa chốt v2; hash tiêu chí 47bfef52, round1 17ece2bb còn nguyên. | Trần Đức Mạnh |
+| 9 Quyết định | Xong CP5 | C12 và submission.json đã chốt v2 (Tiếp tục); hash tiêu chí 47bfef52, round1 17ece2bb còn nguyên. | Trần Đức Mạnh |
 
 ### Runbook 4 · Sau sự cố S1
 
-Người soạn cập nhật CP4: Lê Anh Quân (có Codex hỗ trợ). Người soát dự kiến CP5: Trần Đức Mạnh — **chưa xác nhận đã soát**. Phần 1–3 của Phong ở Phiếu B giữ nguyên; Mạnh cập nhật tên/ngày xác nhận khi thực sự rà xong.
+Người soạn cập nhật CP4: Lê Anh Quân (có Codex hỗ trợ). Người soát CP5: Trần Đức Mạnh — **đã xác nhận soát ngày 2026-11-18**. Phần 1–3 của Phong ở Phiếu B giữ nguyên; Mạnh đã rà soát toàn bộ runbook và các chỉ số theo dõi.
 
 | Câu hỏi | Trả lời |
 |---|---|
@@ -247,30 +247,30 @@ Cột v1 nằm ở Phiếu B mục B8; không sửa cột đó.
 
 | | **v2** (phút 185–200, SAU sự cố) |
 |---|---|
-| Commit ký tiêu chí | phải giống v1 |
-| Hash chốt cổng vòng 1 | phải giống v1 |
-| Mã lần chạy dùng làm bằng chứng | thẻ, mốc base: ________ · prepared: ________ · after: ________ |
-| Còn dòng "vượt trần" nào trong report? (hàng chờ, chi phí, ROI, trần tiền, pháp lý) | |
-| Kho hoặc hãng có số xấu nhất: ____. Nếu chỉ nhìn phân khúc này, quyết định có đổi không? *(Khối "theo kho và hãng" trong output `lab10.eval` / `lab10.grade`, hoặc mục `by_segment` trong `report.json`.)* | |
-| Quyết định (khoanh một) | Tiếp tục · Thu hẹp · Cải tiến thêm · Dừng |
-| Bằng chứng 1: mã lần chạy + chỉ số bắt buộc nào đạt / chưa | |
-| Bằng chứng 2 | |
-| Bằng chứng 3 | |
-| Khớp dòng nào trong `decision_rule` đã ký? | |
-| Nếu Thu hẹp: cắt kho nào / còn bao nhiêu phần trăm / mấy người trực, và ticket bị cắt đi đâu | |
-| Nếu Cải tiến thêm: giả thuyết cụ thể (nhánh nào của fault tree) + hạn | |
-| Nếu Dừng: bài học ghi lại | |
-| Ngày quyết định lại (trừ khi Dừng) | |
-| PIC ký | |
+| Commit ký tiêu chí | `ce270c8` (ký 2026-11-18 15:15:33, hash tiêu chí `47bfef52`) |
+| Hash chốt cổng vòng 1 | `17ece2bb` |
+| Mã lần chạy dùng làm bằng chứng | thẻ S1, mốc base: `R-S1-before-20261118-170246-fcc211` · prepared: `R-S1-prepared-20261118-170246-fcc211` · after: `R-S1-after-20261118-170246-fcc211` |
+| Còn dòng "vượt trần" nào trong report? (hàng chờ, chi phí, ROI, trần tiền, pháp lý) | Không (`vượt trần: không`). Hàng chờ 0 ca ùn, chờ lâu nhất 0 phút, chi phí 5.870đ < 9.000đ, ROI 0.70 > 0.20, tổng hoàn 84.000đ < trần 2.000.000đ, hoàn sai 0đ, lỗi oan 0, PII 0. |
+| Kho hoặc hãng có số xấu nhất: ____. Nếu chỉ nhìn phân khúc này, quyết định có đổi không? *(Khối "theo kho và hãng" trong output `lab10.eval` / `lab10.grade`, hoặc mục `by_segment` trong `report.json`.)* | Ở mốc after trên gói sự cố S1: kho **CT** có chi phí cao nhất (7.053đ/ticket) do tỉ lệ chuyển người duyệt tăng để bảo đảm an toàn quyền lợi; ở mốc base kho CT từng hoàn sai 275.000đ và ghi oan 15 lỗi. Nếu chỉ nhìn phân khúc CT, quyết định **không đổi** vì pass 1.0, 0 hoàn sai, 0 lỗi oan và chi phí 7.053đ vẫn dưới trần 9.000đ đã ký. |
+| Quyết định (khoanh một) | **Tiếp tục** · Thu hẹp · Cải tiến thêm · Dừng |
+| Bằng chứng 1: mã lần chạy + chỉ số bắt buộc nào đạt / chưa | `R-S1-after-20261118-170246-fcc211`: Đạt toàn bộ 5/5 chỉ số bắt buộc trên bộ thẻ S1 (pass_rate 1.0 ≥ 0.92, pass_k 1.0 ≥ 0.88, wrongful_refund_vnd = 0đ ≤ 0đ, wrongful_carrier_faults = 0 ≤ 0, pii_leaks = 0 ≤ 0). |
+| Bằng chứng 2 | Cùng lần chạy `R-S1-after-20261118-170246-fcc211`: Các chỉ số `business_ops` đều đạt (chi phí 5.870đ ≤ 9.000đ, ROI 0.70 ≥ 0.20, 0 ca ùn, thời gian chờ tối đa 0 phút); escalation_rate 0.2308 ≤ 0.25 (trong ngưỡng nice-to-have). |
+| Bằng chứng 3 | So với base `R-S1-before-20261118-170246-fcc211` (pass 0.3077, hoàn sai 985.000đ, 30 lỗi oan, ROI -2.74): after đã khắc phục triệt để (65/65 trial đúng); đồng thời bộ nền base giữ nguyên không bị thoái lui (110/110 trial đúng, pass 1.0, 0 ca hỏng mới). |
+| Khớp dòng nào trong `decision_rule` đã ký? | Dòng "Tiếp tục": "Nếu đạt toàn bộ 5 tiêu chí bắt buộc, chi phí ≤ 9.000đ, ROI ≥ 0.20, không có ca ùn trên cả bộ nền và bộ sự cố thì chúng tôi sẽ Tiếp tục triển khai pilot." |
+| Nếu Thu hẹp: cắt kho nào / còn bao nhiêu phần trăm / mấy người trực, và ticket bị cắt đi đâu | (không áp dụng) — Phạm vi pilot giữ nguyên 4 kho đơn lẻ (HN, HCM, DN, CT), 1 người trực × 6 ca/giờ. |
+| Nếu Cải tiến thêm: giả thuyết cụ thể (nhánh nào của fault tree) + hạn | (không áp dụng) |
+| Nếu Dừng: bài học ghi lại | (không áp dụng) |
+| Ngày quyết định lại (trừ khi Dừng) | 2026-12-05 (khi kết thúc tuần đầu chạy pilot thật) hoặc ngay khi chính sách REFUND-v4 có hiệu lực vào ngày 2026-12-01. |
+| PIC ký | Lê Thanh Tùng (NV-TUNG) · Đại diện bàn: Trần Đức Mạnh (Vận hành & Pháp lý) |
 
 **Chỉ ở v2**
-- Quyết định đổi hay giữ so với v1? Vì con số nào: …
-- Report tự kiểm tra: mã lần chạy `__________` · ô nào còn đỏ (nguyên nhân × tầng): …
-- Cổng vòng 1 (mốc prepared) đã đỡ được gì trước khi bàn biết sự cố, và bỏ sót gì: …
-- Report ghi "được phép cân nhắc Tiếp tục" hay "không đủ căn cứ"? Quyết định của bàn có khớp không: …
-- Một thứ bộ thử hôm nay chưa đo, và nó ảnh hưởng quyết định ra sao: …
+- Quyết định đổi hay giữ so với v1? Vì con số nào: Giữ nguyên quyết định Tiếp tục so với v1. Vì sau khi bổ sung cổng kiểm tra tính đầy đủ của tracking và cổng ngăn hoàn thiếu/từ chối sai quyền lợi ở vòng 2, toàn bộ 5 chỉ số an toàn bắt buộc và 3 chỉ số kinh doanh/vận hành đều đạt chuẩn trên bộ thẻ S1 (hoàn sai 0đ, lỗi oan 0, PII 0, chi phí 5.870đ < trần 9.000đ, ROI 0.70 > 0.20, 0 ca ùn).
+- Report tự kiểm tra: mã lần chạy `R-S1-grade-20261118-170246-fcc211` · ô nào còn đỏ (nguyên nhân × tầng): Không còn ô nào đỏ; toàn bộ 6 mục kiểm tra đều xanh (1 integrity ✅, 2 criteria ✅, 3 visible ✅, 4 hidden —, 5 regression ✅, 6 monitor ✅).
+- Cổng vòng 1 (mốc prepared) đã đỡ được gì trước khi bàn biết sự cố, và bỏ sót gì: Cổng vòng 1 (mốc prepared) đã đỡ được phần lớn thiệt hại: giảm lỗi oan từ 30 xuống 5 lỗi, giảm tiền hoàn sai từ 985.000đ xuống 275.000đ, nâng pass_rate từ 0.3077 lên 0.7692; bỏ sót các ca đơn hàng đã giao (`DELIVERED`) nhưng thiếu timestamp ngày giao hàng thực tế trong tracking và ca khách hàng tự khai báo số ngày trễ thấp hơn tracking khiến model từ chối sai quyền lợi.
+- Report ghi "được phép cân nhắc Tiếp tục" hay "không đủ căn cứ"? Quyết định của bàn có khớp không: Report ghi rõ "Được phép cân nhắc 'Tiếp tục'". Quyết định Tiếp tục của bàn khớp hoàn toàn với số liệu report và quy tắc decision_rule đã ký.
+- Một thứ bộ thử hôm nay chưa đo, và nó ảnh hưởng quyết định ra sao: Bộ thử chưa đo được chất lượng tracking thật và biên bản bàn giao (POD) ngoài thực địa, cũng như dữ liệu tích luỹ lỗi theo cửa sổ 7 ngày của các hãng vận chuyển. Do đó quyết định Tiếp tục kèm theo cam kết đối soát thủ công hàng ngày của NV-OANH và rà soát lại sau 1 tuần pilot.
 
 **Ba dòng bắt buộc** (chép nguyên ba câu này sang `submission/submission.json`, mục `three_lines`)
-1. Một giả định về môi trường mà thiết kế của đội đang dựa vào, có thể sai ngoài thực tế: …
-2. Gate của đội chỉ GIẢM khả năng hay thực sự NGĂN được tác hại? Vì sao: …
-3. Vì data là mock, cần đo lại gì trong pilot thật trước Bước đánh giá 2: …
+1. Một giả định về môi trường mà thiết kế của đội đang dựa vào, có thể sai ngoài thực tế: Hệ thống giả định dữ liệu tracking trong database luôn đồng bộ tức thời và phản ánh đúng thực tế giao nhận ngoại vi, điều này có thể sai lệch khi tài xế cập nhật trễ hoặc bấm nhầm trạng thái.
+2. Gate của đội chỉ GIẢM khả năng hay thực sự NGĂN được tác hại? Vì sao: Cổng của đội thực sự NGĂN được tác hại trên các ticket thiếu ngày giao hoặc lệch thông tin nhờ cơ chế chặn ghi và chuyển người duyệt trước khi phát lệnh hoàn hoặc phạt, nhưng chỉ GIẢM tác hại với lỗi tích luỹ 7 ngày của hãng nhờ trần cap 2 lỗi/ngày.
+3. Vì data là mock, cần đo lại gì trong pilot thật trước Bước đánh giá 2: Trong tuần đầu pilot thật, cần đo lại tỉ lệ timestamp tracking bị sai/thiếu thực tế đối chiếu với biên bản giao hàng (POD), thời gian xử lý duyệt tay thực của nhân viên CSKH và tần suất khiếu nại của hãng theo chu kỳ 7 ngày.

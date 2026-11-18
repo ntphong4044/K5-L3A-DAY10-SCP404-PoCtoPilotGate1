@@ -70,11 +70,11 @@ Vai: Sản phẩm và kinh doanh. Phụ trách Bản tiêu chí chấp nhận (P
 
 ### Đóng góp cụ thể
 
-Xây dựng bộ chỉ số chấp nhận, xác định ngưỡng chi phí tối đa và ROI tối thiểu từ `ops_facts`.
+Xây dựng bộ chỉ số chấp nhận trong `config/acceptance_criteria.json`, xác định ngưỡng chi phí tối đa (9.000đ) và ROI tối thiểu (0.20) từ `ops_facts`, điền Phiếu A và cổng kinh doanh trong `config/operating_gates.json`, phân tích cơ cấu chi phí theo từng kho và tham gia dự thảo quyết định v1, v2.
 
 ### Bằng chứng
 
-...
+Bản tiêu chí chấp nhận đã ký và khóa hash `47bfef52`, Phiếu A đầy đủ các mục, cổng kinh doanh `business` trong `config/operating_gates.json`, các chỉ số chi phí và ROI trên report ba mốc.
 
 ### Exit ticket
 
@@ -85,15 +85,15 @@ Một điều còn chưa chắc: Dự báo độ trôi dạt dữ liệu (data d
 
 ### Phần việc phụ trách
 
-Vai: Vận hành và pháp lý. Phụ trách phân tích HAZOP mở rộng ngoài kỹ thuật, checklist 9 nhóm việc, cổng vận hành và pháp lý (`config/operating_gates.json`), kịch bản vận hành (runbook).
+Vai: Vận hành và pháp lý. Phụ trách phân tích HAZOP mở rộng ngoài kỹ thuật, checklist 9 nhóm việc, cổng vận hành và pháp lý (`config/operating_gates.json`), kịch bản vận hành (runbook), hoàn tất thẩm định và thủ tục bàn giao CP5.
 
 ### Đóng góp cụ thể
 
-Rà soát các nguy cơ về nhân sự duyệt, thời gian hàng chờ và bảo mật dữ liệu PII trước khi gửi cho đối tác vận chuyển.
+Rà soát các nguy cơ về nhân sự duyệt, thời gian hàng chờ và bảo mật dữ liệu PII trước khi gửi cho đối tác vận chuyển; điền cổng `operations` và `legal`, hoàn thiện Runbook 1–5, soát toàn bộ Phiếu C (C0–C11), chốt quyết định Gate 1 v2 tại C12, hoàn thiện `submission/submission.json` và thu thập gói bài nộp CP5 đạt trạng thái ĐỦ THÀNH PHẦN.
 
 ### Bằng chứng
 
-...
+Phiếu B mục B4–B5, B7.5–B7.6; Phiếu C mục C11–C12; `submission/submission.json`; lệnh `check_submission` in `ĐỦ THÀNH PHẦN`; report tự kiểm tra `R-S1-grade-20261118-170246-fcc211` đạt PASS-VISIBLE.
 
 ### Exit ticket
 

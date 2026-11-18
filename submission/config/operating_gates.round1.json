@@ -1,0 +1,30 @@
+{
+  "_huong_dan": "Cổng kinh doanh, vận hành, pháp lý mà trợ lý PHẢI tuân theo. Bàn điền ở vòng 1, chốt bằng python3 -m lab10.checkpoint, rồi được sửa tiếp ở vòng 2. null = chưa đặt cổng này. Giải thích từng dòng: docs/guide.md, mục Cổng trong config (#ban-do).",
+  "business": {
+    "daily_refund_cap_vnd": 1500000,
+    "cost_budget_per_ticket_vnd": 1500,
+    "pilot_scope": {"mode": "warehouse", "warehouses": ["HN", "HCM", "DN", "CT"], "percent": 100},
+    "roi_min": 0.2
+  },
+  "operations": {
+    "pic": "NV-TUNG",
+    "approver_id": "NV-HANH",
+    "reviewers_on_shift": 1,
+    "review_capacity_per_hour": 6,
+    "max_queue_wait_minutes": 60,
+    "stop_conditions": [
+      "Khi có 1 ca lộ dữ liệu cá nhân người nhận cho hãng thì tắt notify_carrier, NV-TUNG bấm trong 15 phút",
+      "Khi có 1 lỗi ghi oan cho hãng (hãng khiếu nại được xác minh) thì tắt file_carrier_fault, NV-TUNG bấm trong 15 phút",
+      "Khi tổng hoàn tự động trong ngày chạm 1.500.000đ thì mọi khoản hoàn tiếp theo chuyển NV-HANH duyệt",
+      "Khi có ca chờ người duyệt quá 60 phút hoặc hàng chờ quá 6 ca thì gọi thêm người trực; quá 12 ca thì thu hẹp về 1 kho",
+      "Khi có 1 khoản hoàn sai được kế toán NV-OANH xác minh thì tắt issue_refund tự động, chuyển toàn bộ sang người duyệt"
+    ],
+    "alert_channel": "#logix-refund-pilot-alerts",
+    "decision_note": true,
+    "review_sampling_pct": 10
+  },
+  "legal": {
+    "pii_fields_blocked_to_third_party": ["recipient_contact", "customer_note", "name", "phone", "street", "email"],
+    "carrier_fault_requires_recorded_cause": true
+  }
+}
